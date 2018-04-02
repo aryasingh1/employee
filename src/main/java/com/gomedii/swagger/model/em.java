@@ -12,21 +12,33 @@ import io.swagger.annotations.ApiModelProperty;
 public class em {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiModelProperty(notes = "The database generated employee ID")
-    @Column(name="id")
-    private Integer id;
-    
+	 
+    @ApiModelProperty(notes = "The employee description")
+    @Column(name="description")
+    private String description;
+	
 	@ApiModelProperty(notes = "The application-specific employee ID")
     @Column(name="employee_id")
     private String employeeId;
     
-	public Integer getId() {
+    
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	
+    
+	/*public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getEmployeeId() {
 		return employeeId;

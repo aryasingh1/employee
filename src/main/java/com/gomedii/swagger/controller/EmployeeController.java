@@ -52,7 +52,7 @@ public class EmployeeController {
     public ResponseEntity<String> saveEmployee(@RequestBody em employee)
     {
     	Employee employeea = new Employee();
-    	employeea.setId(employee.getId());
+    	employeea.setDescription(employee.getDescription());
     	employeea.setEmployeeId(employee.getEmployeeId());
         employeeService.saveem(employeea);
         return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK);

@@ -20,10 +20,12 @@ public class Employee {
     @Column(name="id")
     private Integer id;
     
-    @Version
+   /* @Version
     @ApiModelProperty(notes = "The auto-generated version of the employee",hidden=true)
     @Column(name="version")
-    private Integer version;
+    private Integer version;*/
+    
+  
     
     @ApiModelProperty(notes = "The application-specific employee ID")
     @Column(name="employee_id")
@@ -49,13 +51,13 @@ public class Employee {
         this.description = description;
     }
 
-    public Integer getVersion() {
+   /* public Integer getVersion() {
         return version;
     }
 
     public void setVersion(Integer version) {
         this.version = version;
-    }
+    }*/
 
     public Integer getId() {
         return id;
