@@ -28,7 +28,7 @@ public class SwaagerConfig {
                 "2.0",
                 "Terms of service",
                 new Contact("arya", "https://www.gomedii.com", "aryasingh.ec@gmail.com.com"),
-                "gomedii.com License Version 2.0",
+                "gomedii License Version 2.0",
                 "https://www.gomedii.com/LICENSE-2.0");
         return apiInfo;
     }

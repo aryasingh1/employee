@@ -20,16 +20,23 @@ public class Employee {
     @Column(name="id")
     private Integer id;
     
-   /* @Version
-    @ApiModelProperty(notes = "The auto-generated version of the employee",hidden=true)
-    @Column(name="version")
-    private Integer version;*/
+
     
-  
+   
+
+	@Version
+    @ApiModelProperty(notes = "The auto-generated version of the employee")
+    @Column(name="version")
+    private Integer version;
     
     @ApiModelProperty(notes = "The application-specific employee ID")
     @Column(name="employee_id")
     private String employeeId;
+    
+   
+    @ApiModelProperty(notes = "The application-name")
+    @Column(name="ename")
+    private String ename;
     
     @ApiModelProperty(notes = "The employee description")
     @Column(name="description")
@@ -39,11 +46,21 @@ public class Employee {
     @Column(name="image_url",length=4000)
     private String imageUrl;
     
-    @ApiModelProperty(notes = "The salary of the employee")
+    @ApiModelProperty(notes = "The salary of the employee", required = true)
     @Column(name="salary")
-    private BigDecimal salary;
+    private double salary;
 
-    public String getDescription() {
+    public Employee(int id) {
+    
+    	this.id=id;
+		
+	}
+
+	public Employee() {
+		
+	}
+
+	public String getDescription() {
         return description;
     }
 
@@ -51,13 +68,13 @@ public class Employee {
         this.description = description;
     }
 
-   /* public Integer getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
     public void setVersion(Integer version) {
         this.version = version;
-    }*/
+    }
 
     public Integer getId() {
         return id;
@@ -66,6 +83,14 @@ public class Employee {
     public void setId(Integer id) {
         this.id = id;
     }
+    
+    public String getEname() {
+		return ename;
+	}
+
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
 
     public String getEmployeeId() {
         return employeeId;
@@ -83,13 +108,23 @@ public class Employee {
         this.imageUrl = imageUrl;
     }
 
-    public BigDecimal getSalary() {
+    public  double getSalary() {
         return salary;
     }
 
-    public void setSalary(BigDecimal salary) {
+    public void setSalary( double salary) {
         this.salary = salary;
     }
+
+	@Override
+	public String toString() {
+		return  id + "," + ename + "," + version + "," + employeeId + ","  + description + ","  + imageUrl + "," + salary;
+	}
+
+	
+    
+    
+    
 
 	
 }
