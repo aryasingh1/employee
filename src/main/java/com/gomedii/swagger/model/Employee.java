@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
@@ -25,10 +27,13 @@ public class Employee {
     @Column(name="version")
     private Integer version;
     
+  
+    
     @ApiModelProperty(notes = "The application-specific employee ID")
     @Column(name="employee_id")
     private String employeeId;
     
+    @JsonView(View.Summery.class)
     @ApiModelProperty(notes = "The employee description")
     @Column(name="description")
     private String description;
@@ -37,7 +42,8 @@ public class Employee {
     @Column(name="image_url",length=4000)
     private String imageUrl;
     
-    @ApiModelProperty(notes = "The salary of the employee", required = true)
+    @JsonView(View.Summery.class)
+    @ApiModelProperty(notes = "The salary of the employee")
     @Column(name="salary")
     private BigDecimal salary;
 

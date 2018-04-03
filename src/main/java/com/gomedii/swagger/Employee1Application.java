@@ -21,6 +21,8 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Employee1Application.class, args);
+	
+		
 	}
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		loadEmployee1();
@@ -43,6 +45,6 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		director.setSalary(new BigDecimal("47499"));
 		employee1Repository.save(director);
 
-		log.info("Saved Phone - id:" + director.getId());
+		log.info("Saved employee - id:" + director.getId());
 	}
 }
