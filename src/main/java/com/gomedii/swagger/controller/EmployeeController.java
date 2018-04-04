@@ -42,20 +42,20 @@ public class EmployeeController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/api/employees", method= RequestMethod.GET, produces = "application/json")
     public Iterable<Employee> list(Model model){
         Iterable<Employee> employeeList = employeeService.listAllEmployee();
         return employeeList;
     }
     @ApiOperation(value = "Search a employee with an ID",response = Employee.class)
-    @RequestMapping(value = "/show/{id}", method= RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/api/employees/{id}", method= RequestMethod.GET, produces = "application/json")
     public Employee showEmployee(@PathVariable Integer id, Model model){
        Employee employee = employeeService.getEmployeeById(id);
         return employee;
     }
 
     @ApiOperation(value = "Add a employee")
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/api/employees", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> saveEmployee(@RequestBody em employee)
     {
     	Employee employeea = new Employee();
@@ -66,7 +66,7 @@ public class EmployeeController {
     }
 
     @ApiOperation(value = "Update a employee")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "/api/employees/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<String> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee){
         Employee storedEmployee = employeeService.getEmployeeById(id);
         storedEmployee.setEmployeeId(employee.getEmployeeId());
@@ -78,14 +78,14 @@ public class EmployeeController {
     }
 
     @ApiOperation(value = "Delete a employee")
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value="/api/empoyees/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<String> delete(@PathVariable Integer id){
         employeeService.deleteEmployee(id);
         return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
 
     }
-   @GetMapping("/getSpecific/{id}")
-   @JsonView(View.Summery.class)
+   @GetMapping("/api/employees/{id}/summarry")
+   @JsonView(View.Summary.class)
    public Employee getSpecificEmployee(@PathVariable(value="id") Integer id)
    {
 	  return employeeService.getEmployeeById(id);
