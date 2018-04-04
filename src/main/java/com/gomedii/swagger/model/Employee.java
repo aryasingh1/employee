@@ -1,3 +1,4 @@
+
 package com.gomedii.swagger.model;
 
 import java.math.BigDecimal;
@@ -96,4 +97,5 @@ public class Employee {
     }
 
 	
+
 }

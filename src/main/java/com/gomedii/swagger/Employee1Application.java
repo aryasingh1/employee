@@ -1,6 +1,8 @@
 package com.gomedii.swagger;
 
+
 import java.math.BigDecimal;
+
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.gomedii.swagger.model.Employee;
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.Employee1Application;
 
+
 @SpringBootApplication
 public class Employee1Application implements ApplicationListener<ContextRefreshedEvent>{
 	private Logger log = Logger.getLogger(Employee1Application.class);
@@ -21,8 +24,7 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Employee1Application.class, args);
-	
-		
+
 	}
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		loadEmployee1();
@@ -30,13 +32,17 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	
 	private void loadEmployee1() {
 		Employee employee = new Employee();
+
 		employee.setDescription("employee address");
 		employee.setSalary(new BigDecimal("13299.00"));
+
 		employee.setImageUrl("www.gomedii.com");
 		employee.setEmployeeId("123456");
 		employee1Repository.save(employee);
 
 		log.info("Employee - id: " + employee.getId());
+
+
 
 		Employee director = new Employee();
 		director.setDescription("director address");
@@ -46,5 +52,6 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		employee1Repository.save(director);
 
 		log.info("Saved employee - id:" + director.getId());
+
 	}
 }

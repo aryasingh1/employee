@@ -1,3 +1,4 @@
+
 package com.gomedii.swagger.service;
 
 import com.gomedii.swagger.model.Employee;
@@ -10,4 +11,5 @@ public interface EmployeeService {
 	public abstract void deleteEmployee(Integer id);
 	public abstract void saveem(Employee employee);
 	
+
 }
