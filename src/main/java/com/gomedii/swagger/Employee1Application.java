@@ -15,18 +15,18 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	private Logger log = Logger.getLogger(Employee1Application.class);
 	@Autowired
 	private EmployeeRepository employee1Repository;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(Employee1Application.class, args);
 	}
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		loadEmployee1();
 	}
-	
+
 	private void loadEmployee1() {
 		Employee employee = new Employee();
-		
-		employee.setEname("ram");
+
+		employee.setEname("shyam");
 		employee.setDescription("employee address");
 		employee.setSalary(13299.00);
 		employee.setImageUrl("www.gomedii.com");
@@ -34,14 +34,15 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		employee1Repository.save(employee);
 
 		log.info("Employee - id: " + employee.getId());
-/*
+
 		Employee director = new Employee();
+		director.setEname("ram");
 		director.setDescription("director address");
 		director.setImageUrl("www.binaryinformatics.com");
 		director.setEmployeeId("45678");
-		director.setSalary(new BigDecimal("47499"));
+		director.setSalary(47499.00);
 		employee1Repository.save(director);
 
-		log.info("Saved Phone - id:" + director.getId());*/
+		log.info("Saved Phone - id:" + director.getId());
 	}
 }

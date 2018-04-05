@@ -12,24 +12,24 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableSwagger2
 public class SwaagerConfig {
-    @Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.gomedii.swagger"))
-                .paths(regex("/employee.*"))
-                .build()
-                .apiInfo(metaData());
-    }
-    private ApiInfo metaData() {
-        ApiInfo apiInfo = new ApiInfo(
-                "employee api",
-                "employee api for office",
-                "2.0",
-                "Terms of service",
-                new Contact("arya", "https://www.gomedii.com", "aryasingh.ec@gmail.com.com"),
-                "gomedii License Version 2.0",
-                "https://www.gomedii.com/LICENSE-2.0");
-        return apiInfo;
-    }
+	@Bean
+	public Docket productApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.gomedii.swagger"))
+				.paths(regex("/employee.*"))
+				.build()
+				.apiInfo(metaData());
+	}
+	private ApiInfo metaData() {
+		ApiInfo apiInfo = new ApiInfo(
+				"employee api",
+				"employee api for office",
+				"2.0",
+				"Terms of service",
+				new Contact("arya", "https://www.gomedii.com", "aryasingh.ec@gmail.com.com"),
+				"gomedii License Version 2.0",
+				"https://www.gomedii.com/LICENSE-2.0");
+		return apiInfo;
+	}
 }

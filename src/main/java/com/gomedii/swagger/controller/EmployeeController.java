@@ -24,53 +24,53 @@ import io.swagger.annotations.ApiResponses;
 public class EmployeeController {
 
 	@Autowired
-    private EmployeeService employeeService;
+	private EmployeeService employeeService;
 
-    @ApiOperation(value = "View a list of present employee",response = Iterable.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved list"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    }
-    )
-    @RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
-    public Iterable<Employee> list(Model model){
-        Iterable<Employee> employeeList = employeeService.listAllEmployee();
-        return employeeList;
-    }
-    @ApiOperation(value = "Search a employee with an ID",response = Employee.class)
-    @RequestMapping(value = "/show/{id}", method= RequestMethod.GET, produces = "application/json")
-    public Employee showEmployee(@PathVariable Integer id, Model model){
-       Employee employee = employeeService.getEmployeeById(id);
-        return employee;
-    }
+	@ApiOperation(value = "View a list of present employee",response = Iterable.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+	}
+			)
+	@RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
+	public Iterable<Employee> list(Model model){
+		Iterable<Employee> employeeList = employeeService.listAllEmployee();
+		return employeeList;
+	}
+	@ApiOperation(value = "Search a employee with an ID",response = Employee.class)
+	@RequestMapping(value = "/show/{id}", method= RequestMethod.GET, produces = "application/json")
+	public Employee showEmployee(@PathVariable Integer id, Model model){
+		Employee employee = employeeService.getEmployeeById(id);
+		return employee;
+	}
 
-    @ApiOperation(value = "Add a employee")
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<String> saveEmployee(@RequestBody Employee employee){
-      employeeService.saveEmployee(employee);
-        return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK);
-    }
+	@ApiOperation(value = "Add a employee")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<String> saveEmployee(@RequestBody Employee employee){
+		employeeService.saveEmployee(employee);
+		return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK);
+	}
 
-    @ApiOperation(value = "Update a employee")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity<String> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee){
-        Employee storedEmployee = employeeService.getEmployeeById(id);
-        storedEmployee.setEname(employee.getEname());
-        storedEmployee.setDescription(employee.getDescription());
-        storedEmployee.setImageUrl(employee.getImageUrl());
-        storedEmployee.setSalary(employee.getSalary());
-       employeeService.saveEmployee(storedEmployee);
-        return new ResponseEntity<String>("emplyee updated successfully", HttpStatus.OK);
-    }
+	@ApiOperation(value = "Update a employee")
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
+	public ResponseEntity<String> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee){
+		Employee storedEmployee = employeeService.getEmployeeById(id);
+		storedEmployee.setEname(employee.getEname());
+		storedEmployee.setDescription(employee.getDescription());
+		storedEmployee.setImageUrl(employee.getImageUrl());
+		storedEmployee.setSalary(employee.getSalary());
+		employeeService.saveEmployee(storedEmployee);
+		return new ResponseEntity<String>("emplyee updated successfully", HttpStatus.OK);
+	}
 
-    @ApiOperation(value = "Delete a employee")
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
-    public ResponseEntity<String> delete(@PathVariable Integer id){
-        employeeService.deleteEmployee(id);
-        return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
+	@ApiOperation(value = "Delete a employee")
+	@RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
+	public ResponseEntity<String> delete(@PathVariable Integer id){
+		employeeService.deleteEmployee(id);
+		return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
 
-    }
+	}
 
 }
