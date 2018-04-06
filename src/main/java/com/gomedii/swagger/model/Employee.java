@@ -2,13 +2,15 @@
 package com.gomedii.swagger.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Version;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -18,21 +20,14 @@ import io.swagger.annotations.ApiModelProperty;
 public class Employee {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(notes = "The database generated employee ID")
     @Column(name="id")
     private Integer id;
-    
-    @Version
-    @ApiModelProperty(notes = "The auto-generated version of the employee")
-    @Column(name="version")
-    private Integer version;
-    
-  
-    
+   
     @ApiModelProperty(notes = "The application-specific employee ID")
-    @Column(name="employee_id")
-    private String employeeId;
+    @Column(name="ename")
+    private String Ename;
     
     @JsonView(View.Summery.class)
     @ApiModelProperty(notes = "The employee description")
@@ -40,13 +35,38 @@ public class Employee {
     private String description;
     
     @ApiModelProperty(notes = "The image URL of the employee")
-    @Column(name="image_url",length=4000)
-    private String imageUrl;
+    @Column(name="emailid",length=4000)
+    private String Emailid;
     
     @JsonView(View.Summery.class)
     @ApiModelProperty(notes = "The salary of the employee")
     @Column(name="salary")
     private BigDecimal salary;
+    
+    
+    public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public Date getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(Date updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name= "created_on")
+	private Date createdOn;
+	
+	@Column(name = "updated_on")
+	private Date updatedOn;
+	
 
     public String getDescription() {
         return description;
@@ -54,14 +74,6 @@ public class Employee {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public Integer getId() {
@@ -72,23 +84,27 @@ public class Employee {
         this.id = id;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
+   
 
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
+   
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    public String getEname() {
+		return Ename;
+	}
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+	public void setEname(String ename) {
+		Ename = ename;
+	}
 
-    public BigDecimal getSalary() {
+	public String getEmailid() {
+		return Emailid;
+	}
+
+	public void setEmailid(String emailid) {
+		Emailid = emailid;
+	}
+
+	public BigDecimal getSalary() {
         return salary;
     }
 

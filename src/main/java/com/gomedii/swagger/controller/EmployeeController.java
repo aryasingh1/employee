@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.gomedii.swagger.model.Employee;
 import com.gomedii.swagger.model.View;
-import com.gomedii.swagger.model.em;
+
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.service.EmployeeService;
 
@@ -42,49 +42,49 @@ public class EmployeeController {
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     }
     )
-    @RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/api/employees", method= RequestMethod.GET, produces = "application/json")
     public Iterable<Employee> list(Model model){
         Iterable<Employee> employeeList = employeeService.listAllEmployee();
         return employeeList;
     }
+    
     @ApiOperation(value = "Search a employee with an ID",response = Employee.class)
-    @RequestMapping(value = "/show/{id}", method= RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/api/employees/{id}", method= RequestMethod.GET, produces = "application/json")
     public Employee showEmployee(@PathVariable Integer id, Model model){
        Employee employee = employeeService.getEmployeeById(id);
         return employee;
     }
 
     @ApiOperation(value = "Add a employee")
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity<String> saveEmployee(@RequestBody em employee)
+    @RequestMapping(value = "/api/employees", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<String> saveEmployee(@RequestBody Employee employee)
     {
-    	Employee employeea = new Employee();
-    	employeea.setDescription(employee.getDescription());
-    	employeea.setEmployeeId(employee.getEmployeeId());
-        employeeService.saveem(employeea);
-        return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK);
+    	employeeService.saveEmployee(employee); 
+    	return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK); 
+    	
     }
 
     @ApiOperation(value = "Update a employee")
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "/api/employees/{id}", method = RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<String> updateEmployee(@PathVariable Integer id, @RequestBody Employee employee){
         Employee storedEmployee = employeeService.getEmployeeById(id);
-        storedEmployee.setEmployeeId(employee.getEmployeeId());
+        storedEmployee.setEname(employee.getEname());
         storedEmployee.setDescription(employee.getDescription());
-        storedEmployee.setImageUrl(employee.getImageUrl());
+        storedEmployee.setEmailid(employee.getEmailid());
         storedEmployee.setSalary(employee.getSalary());
-        employeeService.saveem(storedEmployee);
+           
+        employeeService.saveEmployee(storedEmployee);
         return new ResponseEntity<String>("emplyee updated successfully", HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete a employee")
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    @RequestMapping(value="/api/empoyees/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<String> delete(@PathVariable Integer id){
         employeeService.deleteEmployee(id);
         return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
 
     }
-   @GetMapping("/getSpecific/{id}")
+   @GetMapping("/api/employees/{id}/summarry")
    @JsonView(View.Summery.class)
    public Employee getSpecificEmployee(@PathVariable(value="id") Integer id)
    {

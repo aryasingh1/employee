@@ -1,5 +1,5 @@
 
-   package com.gomedii.swagger.service;
+ package com.gomedii.swagger.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gomedii.swagger.model.Employee;
-import com.gomedii.swagger.model.em;
+
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.service.EmployeeService;
 import com.gomedii.swagger.service.EmployeeServiceImpl;
@@ -49,11 +49,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	
 
-	@Override
-	public void saveem(Employee employee) {
-		
-		employeeRepository.save(employee);
-
-	}
+	
 }
 

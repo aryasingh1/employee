@@ -3,8 +3,7 @@ package com.gomedii.swagger;
 
 import java.math.BigDecimal;
 
-
-import org.apache.log4j.Logger;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,8 +35,9 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		employee.setDescription("employee address");
 		employee.setSalary(new BigDecimal("13299.00"));
 
-		employee.setImageUrl("www.gomedii.com");
-		employee.setEmployeeId("123456");
+		employee.setEmailid("www.gomedii.com");
+		employee.setEname("123456");
+		
 		employee1Repository.save(employee);
 
 		log.info("Employee - id: " + employee.getId());
@@ -46,8 +46,8 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 
 		Employee director = new Employee();
 		director.setDescription("director address");
-		director.setImageUrl("www.binaryinformatics.com");
-		director.setEmployeeId("45678");
+		director.setEmailid("www.binaryinformatics.com");
+		director.setEname("45678");
 		director.setSalary(new BigDecimal("47499"));
 		employee1Repository.save(director);
 
