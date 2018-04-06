@@ -31,13 +31,15 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	
 	private void loadEmployee1() {
 		Employee employee = new Employee();
-
+       
 		employee.setDescription("employee address");
 		employee.setSalary(new BigDecimal("13299.00"));
+
 
 		employee.setEmailid("www.gomedii.com");
 		employee.setEname("123456");
 		
+
 		employee1Repository.save(employee);
 
 		log.info("Employee - id: " + employee.getId());
@@ -45,10 +47,15 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 
 
 		Employee director = new Employee();
+		
 		director.setDescription("director address");
+
 		director.setEmailid("www.binaryinformatics.com");
 		director.setEname("45678");
+
 		director.setSalary(new BigDecimal("47499"));
+		
+		
 		employee1Repository.save(director);
 
 		log.info("Saved employee - id:" + director.getId());

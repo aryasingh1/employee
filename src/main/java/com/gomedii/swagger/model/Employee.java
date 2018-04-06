@@ -29,7 +29,7 @@ public class Employee {
     @Column(name="ename")
     private String Ename;
     
-    @JsonView(View.Summery.class)
+    @JsonView(View.Summary.class)
     @ApiModelProperty(notes = "The employee description")
     @Column(name="description")
     private String description;
@@ -38,7 +38,7 @@ public class Employee {
     @Column(name="emailid",length=4000)
     private String Emailid;
     
-    @JsonView(View.Summery.class)
+    @JsonView(View.Summary.class)
     @ApiModelProperty(notes = "The salary of the employee")
     @Column(name="salary")
     private BigDecimal salary;

@@ -57,11 +57,13 @@ public class EmployeeController {
 
     @ApiOperation(value = "Add a employee")
     @RequestMapping(value = "/api/employees", method = RequestMethod.POST, produces = "application/json")
+
     public ResponseEntity<String> saveEmployee(@RequestBody Employee employee)
     {
     	employeeService.saveEmployee(employee); 
     	return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK); 
     	
+
     }
 
     @ApiOperation(value = "Update a employee")
@@ -85,7 +87,9 @@ public class EmployeeController {
 
     }
    @GetMapping("/api/employees/{id}/summarry")
-   @JsonView(View.Summery.class)
+
+   @JsonView(View.Summary.class)
+
    public Employee getSpecificEmployee(@PathVariable(value="id") Integer id)
    {
 	  return employeeService.getEmployeeById(id);
