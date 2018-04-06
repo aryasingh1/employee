@@ -1,4 +1,3 @@
-
 package com.gomedii.swagger.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +61,6 @@ public class EmployeeController {
     {
     	employeeService.saveEmployee(employee); 
     	return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK); 
-    	
-
     }
 
     @ApiOperation(value = "Update a employee")

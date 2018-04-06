@@ -3,20 +3,28 @@ package com.gomedii.swagger.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import org.hibernate.envers.AuditJoinTable;
+import org.hibernate.envers.Audited;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import io.swagger.annotations.ApiModelProperty;
 
+@Audited
 @Entity
+@Table(name="employee")
 public class Employee {
 	
     @Id
@@ -35,15 +43,34 @@ public class Employee {
     private String description;
     
     @ApiModelProperty(notes = "The image URL of the employee")
-    @Column(name="emailid",length=4000)
+    @Column(name="emailid",length=5000)
     private String Emailid;
     
     @JsonView(View.Summary.class)
     @ApiModelProperty(notes = "The salary of the employee")
     @Column(name="salary")
     private BigDecimal salary;
-    
-    
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name= "created_on")
+	private Date createdOn;
+	
+	@Column(name = "updated_on")
+	private Date updatedOn;
+	
+
+	@ManyToMany(cascade = CascadeType.ALL , fetch=FetchType.LAZY)	
+	@AuditJoinTable
+	@JoinTable(name="employee_department" ,  joinColumns= {
+													@JoinColumn(name="id")},inverseJoinColumns= {
+													@JoinColumn(name="did")})
+	
+	private List<Department> department;
+	
+    public List<Department> getDepartment() {
+		return department;
+	}
+
     public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -59,16 +86,12 @@ public class Employee {
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
+    
+	public void setDepartment(List<Department> department) {
+		this.department = department;
+	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name= "created_on")
-	private Date createdOn;
-	
-	@Column(name = "updated_on")
-	private Date updatedOn;
-	
-
-    public String getDescription() {
+	public String getDescription() {
         return description;
     }
 
@@ -83,11 +106,7 @@ public class Employee {
     public void setId(Integer id) {
         this.id = id;
     }
-
-   
-
-   
-
+    
     public String getEname() {
 		return Ename;
 	}
@@ -111,7 +130,4 @@ public class Employee {
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
-
-	
-
 }
