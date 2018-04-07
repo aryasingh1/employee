@@ -39,7 +39,8 @@ public class Department {
 	@Column(name = "updated_on")
 	private Date updatedOn;
 	
-	@ManyToMany(cascade = CascadeType.ALL,mappedBy="department")   
+	//@ManyToMany(/*cascade = CascadeType.REFRESH,*/mappedBy="department")
+	@ManyToMany(cascade = CascadeType.ALL,/*fetch=FetchType.LAZY,*/mappedBy="department")
 	private List<Employee> employee;
 	
 	
@@ -68,7 +69,6 @@ public class Department {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-	
 	
 	public Date getUpdatedOn() {
 		return updatedOn;

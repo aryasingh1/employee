@@ -1,5 +1,7 @@
 package com.gomedii.swagger.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +73,7 @@ public class EmployeeController {
         storedEmployee.setDescription(employee.getDescription());
         storedEmployee.setEmailid(employee.getEmailid());
         storedEmployee.setSalary(employee.getSalary());
+        storedEmployee.setUpdatedOn(new Date());
            
         employeeService.saveEmployee(storedEmployee);
         return new ResponseEntity<String>("emplyee updated successfully", HttpStatus.OK);
