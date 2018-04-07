@@ -17,7 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.envers.AuditJoinTable;
+
 import org.hibernate.envers.Audited;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
@@ -59,7 +61,7 @@ public class Employee {
 	private Date updatedOn;
 	
 
-	@ManyToMany(cascade = CascadeType.ALL , fetch=FetchType.LAZY)	
+	@ManyToMany(cascade = CascadeType.ALL , fetch=FetchType.LAZY)
 	@AuditJoinTable
 	@JoinTable(name="employee_department" ,  joinColumns= {
 													@JoinColumn(name="id")},inverseJoinColumns= {
@@ -69,6 +71,10 @@ public class Employee {
 	
     public List<Department> getDepartment() {
 		return department;
+	}
+    
+    public void setDepartment(List<Department> department) {
+		this.department = department;
 	}
 
     public Date getCreatedOn() {
@@ -87,9 +93,7 @@ public class Employee {
 		this.updatedOn = updatedOn;
 	}
     
-	public void setDepartment(List<Department> department) {
-		this.department = department;
-	}
+	
 
 	public String getDescription() {
         return description;
