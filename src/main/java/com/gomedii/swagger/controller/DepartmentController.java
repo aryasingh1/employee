@@ -4,15 +4,12 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.gomedii.swagger.model.Department;
-import com.gomedii.swagger.repositries.DepartmentRepository;
 import com.gomedii.swagger.service.DepartmentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,7 +24,7 @@ public class DepartmentController {
 	@Autowired
     private DepartmentService departmentService;
 	
-    @ApiOperation(value = "View a list of present Department",response = Iterable.class)
+    @ApiOperation(value = "View a list of present Department",response = Department.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -36,14 +33,14 @@ public class DepartmentController {
     }
     )
     @RequestMapping(value = "/api/Department", method= RequestMethod.GET, produces = "application/json")
-    public Iterable<Department> list(Model model){
+    public Iterable<Department> list(){
         Iterable<Department> departmentList = departmentService.listAllDepartment();
         return departmentList;
     }
     
     @ApiOperation(value = "Search a Department with an ID",response = Department.class)
     @RequestMapping(value = "/api/Department/{id}", method= RequestMethod.GET, produces = "application/json")
-    public Department showDepartment(@PathVariable Integer id, Model model){
+    public Department showDepartment(@PathVariable Integer id){
     	Department department = departmentService.getDepartmentById(id);
         return department;
     }
@@ -66,6 +63,7 @@ public class DepartmentController {
         storedDepartment.setDmob(department.getDmob());
         storedDepartment.setCreatedOn(department.getCreatedOn());
         storedDepartment.setUpdatedOn(department.getUpdatedOn());
+        storedDepartment.setUpdatedBy(department.getId());
         storedDepartment.setUpdatedOn(new Date());
         departmentService.saveDepartment(storedDepartment);
         return new ResponseEntity<String>("Department updated successfully", HttpStatus.OK);
