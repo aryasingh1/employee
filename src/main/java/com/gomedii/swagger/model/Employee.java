@@ -21,6 +21,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.envers.AuditJoinTable;
 
 import org.hibernate.envers.Audited;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -60,7 +62,13 @@ public class Employee {
 	@Column(name = "updated_on")
 	private Date updatedOn;
 	
-
+	@Column(name= "createdBy")
+	private int createdBy;
+	
+	@Column(name = "updatedBy")
+	private int updatedBy;
+	
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL , fetch=FetchType.LAZY)
 	@AuditJoinTable
 	@JoinTable(name="employee_department" ,  joinColumns= {
@@ -68,7 +76,7 @@ public class Employee {
 													@JoinColumn(name="did")})
 	
 	private List<Department> department;
-	
+
     public List<Department> getDepartment() {
 		return department;
 	}
@@ -76,7 +84,25 @@ public class Employee {
     public void setDepartment(List<Department> department) {
 		this.department = department;
 	}
+    
+    public int getCreatedBy()
+    {
+    	return createdBy;
+    }
+    public void setCreatedBy(int createdBy)
+    {
+    	this.createdBy= createdBy;
+    }
 
+    public int getUpdatedBy()
+    {
+    	return updatedBy;
+    }
+    public void setUpdatedBy(int updatedBy)
+    {
+    	this.updatedBy= updatedBy;
+    }
+    
     public Date getCreatedOn() {
 		return createdOn;
 	}

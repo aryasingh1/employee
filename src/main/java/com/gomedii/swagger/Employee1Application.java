@@ -1,6 +1,5 @@
 package com.gomedii.swagger;
-	
-	
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,8 +27,8 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	@Autowired
 	private EmployeeRepository employee1Repository;
 		
-	@Autowired
-	private DepartmentRepository departmentRepository;
+/*	@Autowired
+	private DepartmentRepository departmentRepository;*/
 		
 	public static void main(String[] args) {
 		SpringApplication.run(Employee1Application.class, args);

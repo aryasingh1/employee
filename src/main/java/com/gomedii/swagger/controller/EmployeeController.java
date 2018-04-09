@@ -5,7 +5,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +34,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeRepository repo;
 
-    @ApiOperation(value = "View a list of present employee",response = Iterable.class)
+    @ApiOperation(value = "View a list of present employee",response = Employee.class)
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -44,14 +43,14 @@ public class EmployeeController {
     }
     )
     @RequestMapping(value = "/api/employees", method= RequestMethod.GET, produces = "application/json")
-    public Iterable<Employee> list(Model model){
+    public Iterable<Employee> list(){
         Iterable<Employee> employeeList = employeeService.listAllEmployee();
         return employeeList;
     }
     
     @ApiOperation(value = "Search a employee with an ID",response = Employee.class)
     @RequestMapping(value = "/api/employees/{id}", method= RequestMethod.GET, produces = "application/json")
-    public Employee showEmployee(@PathVariable Integer id, Model model){
+    public Employee showEmployee(@PathVariable Integer id){
        Employee employee = employeeService.getEmployeeById(id);
         return employee;
     }
@@ -61,7 +60,7 @@ public class EmployeeController {
 
     public ResponseEntity<String> saveEmployee(@RequestBody Employee employee)
     {
-    	employeeService.saveEmployee(employee); 
+    	employeeService.saveEmployee(employee);
     	return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK); 
     }
 
@@ -73,6 +72,7 @@ public class EmployeeController {
         storedEmployee.setDescription(employee.getDescription());
         storedEmployee.setEmailid(employee.getEmailid());
         storedEmployee.setSalary(employee.getSalary());
+        storedEmployee.setUpdatedBy(employee.getId());		//Updating in Employee by employee id
         storedEmployee.setUpdatedOn(new Date());
            
         employeeService.saveEmployee(storedEmployee);
@@ -105,4 +105,4 @@ public class EmployeeController {
 	   
    }
    
-   }
+}
