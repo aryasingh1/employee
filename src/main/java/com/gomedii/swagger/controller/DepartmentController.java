@@ -1,4 +1,5 @@
 package com.gomedii.swagger.controller;
+
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +64,13 @@ public class DepartmentController {
         storedDepartment.setDmob(department.getDmob());
         storedDepartment.setCreatedOn(department.getCreatedOn());
         storedDepartment.setUpdatedOn(department.getUpdatedOn());
+<<<<<<< HEAD
         storedDepartment.setUpdatedBy(department.getId());
+=======
+
+>>>>>>> 63711a79ff1fba2589b78f63a2ec7343ab5b594a
         storedDepartment.setUpdatedOn(new Date());
+
         departmentService.saveDepartment(storedDepartment);
         return new ResponseEntity<String>("Department updated successfully", HttpStatus.OK);
     }
