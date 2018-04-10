@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.envers.Audited;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Audited
 @Entity
 @Table(name="department")
@@ -31,7 +33,6 @@ public class Department {
 	@Column(name= "dmob")
 	private String Dmob;
 
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "created_on")
 	private Date createdOn;
