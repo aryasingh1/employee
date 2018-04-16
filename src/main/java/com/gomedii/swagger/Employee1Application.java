@@ -14,7 +14,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import com.gomedii.swagger.model.Department;
 import com.gomedii.swagger.model.Employee;
-import com.gomedii.swagger.repositries.DepartmentRepository;
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.Employee1Application;
 	
@@ -91,6 +90,14 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 			
 			employee.setDepartment(deptList);
 			director.setDepartment(deptList);
+			
+			employee1Repository.save(employee);
+			
+			employee.setCreatedBy(employee.getId());
+			director.setCreatedBy(employee.getId());
+			
+			department1.setCreatedBy(employee.getId());
+			department2.setCreatedBy(employee.getId());
 			
 			employee1Repository.save(employee);
 			
