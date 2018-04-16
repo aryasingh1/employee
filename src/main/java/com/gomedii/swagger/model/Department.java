@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,6 @@ public class Department {
 	@Column(name= "dmob")
 	private String Dmob;
 
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "created_on")
 	private Date createdOn;
@@ -39,8 +39,14 @@ public class Department {
 	@Column(name = "updated_on")
 	private Date updatedOn;
 	
-	//@ManyToMany(/*cascade = CascadeType.REFRESH,*/mappedBy="department")
-	@ManyToMany(cascade = CascadeType.ALL,/*fetch=FetchType.LAZY,*/mappedBy="department")
+	@Column(name= "createdBy")
+	private int createdBy;
+	
+	@Column(name = "updatedBy")
+	private int updatedBy;
+	
+	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="department")
+	
 	private List<Employee> employee;
 	
 	
@@ -76,10 +82,29 @@ public class Department {
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
+	
 	public List<Employee> getEmployee() {
 		return employee;
 	}
 	public void setEmployee(List<Employee> employee) {
 		this.employee = employee;
 	}
+	
+	public int getCreatedBy()
+    {
+    	return createdBy;
+    }
+    public void setCreatedBy(int createdBy)
+    {
+    	this.createdBy= createdBy;
+    }
+
+    public int getUpdatedBy()
+    {
+    	return updatedBy;
+    }
+    public void setUpdatedBy(int updatedBy)
+    {
+    	this.updatedBy= updatedBy;
+    }
 }	

@@ -1,6 +1,5 @@
 package com.gomedii.swagger;
-	
-	
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,8 +27,8 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	@Autowired
 	private EmployeeRepository employee1Repository;
 		
-	@Autowired
-	private DepartmentRepository departmentRepository;
+/*	@Autowired
+	private DepartmentRepository departmentRepository;*/
 		
 	public static void main(String[] args) {
 		SpringApplication.run(Employee1Application.class, args);
@@ -91,13 +90,20 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 			department2.setEmployee(empList);
 			
 			employee.setDepartment(deptList);
-			director.setDepartment(deptList);
+			director.setDepartment(deptList);			
 			
 			employee1Repository.save(employee);
 			
-		//	employee1Repository.save(director);
+			employee.setCreatedBy(employee.getId());
+			director.setCreatedBy(employee.getId());
+			department1.setCreatedBy(employee.getId());
+			department2.setCreatedBy(employee.getId());
 			
-		/*	departmentRepository.save(department1);
+			employee1Repository.save(employee);
+		
+			
+		/*	employee1Repository.save(director);
+		    departmentRepository.save(department1);
 			departmentRepository.save(department2);*/
 		}
 	}
