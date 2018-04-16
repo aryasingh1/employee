@@ -38,6 +38,7 @@ public class Employee {
     private Integer id;
    
     @ApiModelProperty(notes = "The application-specific employee ID")
+    @JsonView(View.Summary.class)
     @Column(name="ename")
     private String Ename;
     
@@ -46,12 +47,11 @@ public class Employee {
     @Column(name="description")
     private String description;
     
-    @ApiModelProperty(notes = "The image URL of the employee")
+    @ApiModelProperty(notes = "The Emailid of the employee")
     @Column(name="emailid",length=5000)
     private String Emailid;
     
-    @JsonView(View.Summary.class)
-    @ApiModelProperty(notes = "The salary of the employee")
+   
     @Column(name="salary")
     private BigDecimal salary;
 
@@ -120,8 +120,6 @@ public class Employee {
 		this.updatedOn = updatedOn;
 	}
     
-	
-
 	public String getDescription() {
         return description;
     }
