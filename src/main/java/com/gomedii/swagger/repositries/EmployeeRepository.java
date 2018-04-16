@@ -1,5 +1,7 @@
+
 	
 	package com.gomedii.swagger.repositries;
+
 	
 	import org.springframework.data.repository.CrudRepository;
 	

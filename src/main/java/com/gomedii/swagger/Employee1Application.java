@@ -89,12 +89,13 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 			department2.setEmployee(empList);
 			
 			employee.setDepartment(deptList);
-			director.setDepartment(deptList);
+			director.setDepartment(deptList);			
 			
 			employee1Repository.save(employee);
 			
 			employee.setCreatedBy(employee.getId());
 			director.setCreatedBy(employee.getId());
+
 			
 			department1.setCreatedBy(employee.getId());
 			department2.setCreatedBy(employee.getId());
@@ -102,8 +103,13 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 			employee1Repository.save(employee);
 			
 		//	employee1Repository.save(director);
+
 			
-		/*	departmentRepository.save(department1);
+			employee1Repository.save(employee);
+		
+			
+		/*	employee1Repository.save(director);
+		    departmentRepository.save(department1);
 			departmentRepository.save(department2);*/
 		}
 	}

@@ -111,6 +111,7 @@
 			this.createdOn = createdOn;
 		}
 	
+
 		public Date getUpdatedOn() {
 			return updatedOn;
 		}
@@ -142,6 +143,7 @@
 		public void setEname(String ename) {
 			Ename = ename;
 		}
+
 	
 		public String getEmailid() {
 			return Emailid;

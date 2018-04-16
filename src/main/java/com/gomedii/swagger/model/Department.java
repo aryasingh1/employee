@@ -1,22 +1,20 @@
+
 	package com.gomedii.swagger.model;
 	import java.util.Date;
-	import java.util.List;
-	
-	import javax.persistence.CascadeType;
-	import javax.persistence.Column;
-	import javax.persistence.Entity;
-	import javax.persistence.FetchType;
-	import javax.persistence.GeneratedValue;
-	import javax.persistence.GenerationType;
-	import javax.persistence.Id;
-	import javax.persistence.ManyToMany;
-	import javax.persistence.Table;
-	import javax.persistence.Temporal;
-	import javax.persistence.TemporalType;
-	
-	import org.hibernate.envers.Audited;
-	
-	import com.fasterxml.jackson.annotation.JsonView;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.envers.Audited;
 	
 	@Audited
 	@Entity
@@ -101,6 +99,7 @@
 	    	this.createdBy= createdBy;
 	    }
 	
+
 	    public int getUpdatedBy()
 	    {
 	    	return updatedBy;
@@ -110,3 +109,5 @@
 	    	this.updatedBy= updatedBy;
 	    }
 	}	
+
+	
