@@ -65,6 +65,7 @@ public class Employee {
 	@Column(name= "createdBy")
 	private int createdBy;
 	
+	@JsonView(View.Summary.class)
 	@Column(name = "updatedBy")
 	private int updatedBy;
 	
@@ -73,7 +74,7 @@ public class Employee {
 	@AuditJoinTable
 	@JoinTable(name="employee_department" ,  joinColumns= {
 													@JoinColumn(name="id")},inverseJoinColumns= {
-													@JoinColumn(name="did")})
+												@JoinColumn(name="did")})
 	
 	private List<Department> department;
 
