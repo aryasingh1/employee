@@ -1,7 +1,7 @@
 package com.gomedii.swagger.model;
+
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -116,7 +116,4 @@ public class Department {
     {
     	this.updatedBy= updatedBy;
     }
-}	
-
-
-	
+}

@@ -1,14 +1,11 @@
+package com.gomedii.swagger.repositries;
 
-	
-	package com.gomedii.swagger.repositries;
+import org.springframework.data.repository.CrudRepository;
 
-	
-	import org.springframework.data.repository.CrudRepository;
-	
-	import com.gomedii.swagger.model.Employee;
-	
-	public interface EmployeeRepository extends CrudRepository<Employee, Integer>
-	{
-		 
-		
-	}
+import com.gomedii.swagger.model.Employee;
+
+public interface EmployeeRepository extends CrudRepository<Employee, Integer>
+{
+
+
+}
