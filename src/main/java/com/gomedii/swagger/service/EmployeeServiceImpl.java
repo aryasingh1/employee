@@ -1,7 +1,5 @@
+package com.gomedii.swagger.service;
 
- package com.gomedii.swagger.service;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,8 +12,6 @@ import com.gomedii.swagger.model.Department;
 import com.gomedii.swagger.model.Employee;
 import com.gomedii.swagger.repositries.DepartmentRepository;
 import com.gomedii.swagger.repositries.EmployeeRepository;
-import com.gomedii.swagger.service.EmployeeService;
-import com.gomedii.swagger.service.EmployeeServiceImpl;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -40,28 +36,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         logger.debug("getEmployeeById called");
         return employeeRepository.findOne(id);
     }
-
+    
     @Override
     public Employee saveEmployee(Employee employee) {
-        logger.debug("saveEmployee called");
+        logger.debug("saveDepartment called"); 
         
-/*    	List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
-    	Employee employee2 =  employeeList.get(0);
-    	List<Department> departments =employee2.getDepartment();   
-    	employee.setDepartment(departments);*/
+        List<Department> deptlist = employee.getDepartment();
         
-        List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
-    	Employee employee2 =  employeeList.get(0);
-    	
-    	List<Department> departments =employee2.getDepartment();
-    	List<Department> deparmentNew = new ArrayList<>();
-    	for(Department department :  departments)
-    	{
-    		//Department department1 = new Department();
-    		//department1.setId(department.getId());
-    		deparmentNew.add(department);
-    	}
-    	employee.setDepartment(deparmentNew);
+        for(Department deptloop : deptlist)
+        {
+        	deptloop.setEmployee(Arrays.asList(employee));
+        }
         return employeeRepository.save(employee);
     }
 

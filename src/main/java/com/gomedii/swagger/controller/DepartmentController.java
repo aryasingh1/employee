@@ -85,12 +85,11 @@ public class DepartmentController {
         //storedDepartment.setDid(department.getDid());
         storedDepartment.setDname(department.getDname());
         storedDepartment.setDmob(department.getDmob());
-        storedDepartment.setCreatedOn(department.getCreatedOn());
-        storedDepartment.setUpdatedOn(department.getUpdatedOn());
-
-        storedDepartment.setUpdatedBy(department.getId());
-
+   //   storedDepartment.setCreatedOn(department.getCreatedOn());
+   //   storedDepartment.setUpdatedOn(department.getUpdatedOn());
+        
         storedDepartment.setUpdatedOn(new Date());
+        storedDepartment.setUpdatedBy(department.getId());
 
         departmentService.saveDepartment(storedDepartment);
         return new ResponseEntity<String>("Department updated successfully", HttpStatus.OK);

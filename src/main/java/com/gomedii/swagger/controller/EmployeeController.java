@@ -50,8 +50,6 @@ public class EmployeeController {
     {
         Iterable<Employee> employeeList = employeeService.listAllEmployee();
         return employeeList;
-        
-       
     }
     
     @ApiOperation(value = "Search a employee with an ID",response = Employee.class)
@@ -99,8 +97,9 @@ public class EmployeeController {
         storedEmployee.setDescription(employee.getDescription());
         storedEmployee.setEmailid(employee.getEmailid());
         storedEmployee.setSalary(employee.getSalary());
-        storedEmployee.setUpdatedBy(employee.getId());		//Updating in Employee by employee id
+        
         storedEmployee.setUpdatedOn(new Date());
+        storedEmployee.setUpdatedBy(employee.getId());		//Updating in Employee by employee id = 1
            
         employeeService.saveEmployee(storedEmployee);
         return new ResponseEntity<String>("emplyee updated successfully", HttpStatus.OK);
@@ -118,7 +117,6 @@ public class EmployeeController {
     {
         employeeService.deleteEmployee(id);
         return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
-
     }
     
   
@@ -141,6 +139,4 @@ public class EmployeeController {
 	 
 	   
    }
-  
-  
 }

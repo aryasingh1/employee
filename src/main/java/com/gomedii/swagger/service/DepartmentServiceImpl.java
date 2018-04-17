@@ -38,24 +38,29 @@ public class DepartmentServiceImpl implements DepartmentService {
         logger.debug("getDepartmentById called");
         return departmentRepository.findOne(id);
     }
-
+    
+   
     @Override
     public Department saveDepartment(Department department) {
-        logger.debug("saveDepartment called"); 
-        
-        List<Employee> emplist = department.getEmployee();
-        
-        for(Employee emploop : emplist)
-        {
-        	emploop.setDepartment(Arrays.asList(department));
-        }
-        return  departmentRepository.save(department);
+        logger.debug("saveEmployee called");
 
+        
+        List<Department> departmentList =  (List<Department>) departmentRepository.findAll();
+        Department depatment2 =  departmentList.get(0);
+    	
+    	List<Employee> employees =depatment2.getEmployee();
+    	List<Employee> employeeNew = new ArrayList<>();
+    	for(Employee employee :  employees)
+    	{
+    		employeeNew.add(employee);
+    	}
+    	department.setEmployee(employeeNew);
+        return departmentRepository.save(department);
     }
-
+    
     @Override
     public void deleteDepartment(Integer id) {
         logger.debug("deleteDepartment called");
         departmentRepository.delete(id);
-    } 
+    }
 }	
