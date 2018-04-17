@@ -53,99 +53,109 @@ public class Employee {
 	@Column(name= "created_on")
 	private Date createdOn;
 	
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="employee")
+	
+	private List<Department> department;
+
 	@Column(name = "updated_on")
 	private Date updatedOn;
 	
 	@Column(name= "createdBy")
 	private int createdBy;
 	
-	@JsonView(View.Summary.class)
 	@Column(name = "updatedBy")
 	private int updatedBy;
 	
-	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="employee")
 	
-	private List<Department> department;
-
-    public List<Department> getDepartment() {
-		return department;
-	}
     
-    public void setDepartment(List<Department> department) {
-		this.department = department;
+		
+
+	
+	    public List<Department> getDepartment() {
+			return department;
+		}
+	    
+	    public void setDepartment(List<Department> department) {
+			this.department = department;
+		}
+	    
+	    public int getCreatedBy()
+	    {
+	    	return createdBy;
+	    }
+	    public void setCreatedBy(int createdBy)
+	    {
+	    	this.createdBy= createdBy;
+	    }
+	
+	    public int getUpdatedBy()
+	    {
+	    	return updatedBy;
+	    }
+	    public void setUpdatedBy(int updatedBy)
+	    {
+	    	this.updatedBy= updatedBy;
+	    }
+	    
+	    public Date getCreatedOn() {
+			return createdOn;
+		}
+	
+		public void setCreatedOn(Date createdOn) {
+			this.createdOn = createdOn;
+		}
+	
+
+		public Date getUpdatedOn() {
+			return updatedOn;
+		}
+	
+		public void setUpdatedOn(Date updatedOn) {
+			this.updatedOn = updatedOn;
+		}
+	    
+		public String getDescription() {
+	        return description;
+	    }
+	
+	    public void setDescription(String description) {
+	        this.description = description;
+	    }
+	
+	    public Integer getId() {
+	        return id;
+	    }
+	
+	    public void setId(Integer id) {
+	        this.id = id;
+	    }
+	    
+	    public String getEname() {
+			return Ename;
+		}
+	
+		public void setEname(String ename) {
+			Ename = ename;
+		}
+
+	
+
+	
+		public String getEmailid() {
+			return Emailid;
+		}
+	
+		public void setEmailid(String emailid) {
+			Emailid = emailid;
+		}
+	
+		public BigDecimal getSalary() {
+	        return salary;
+	    }
+	
+	    public void setSalary(BigDecimal salary) {
+	        this.salary = salary;
+	    }
 	}
-    
-    public int getCreatedBy()
-    {
-    	return createdBy;
-    }
-    public void setCreatedBy(int createdBy)
-    {
-    	this.createdBy= createdBy;
-    }
-
-    public int getUpdatedBy()
-    {
-    	return updatedBy;
-    }
-    public void setUpdatedBy(int updatedBy)
-    {
-    	this.updatedBy= updatedBy;
-    }
-    
-    public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Date getUpdatedOn() {
-		return updatedOn;
-	}
-
-	public void setUpdatedOn(Date updatedOn) {
-		this.updatedOn = updatedOn;
-	}
-    
-	public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    public String getEname() {
-		return Ename;
-	}
-
-	public void setEname(String ename) {
-		Ename = ename;
-	}
-
-	public String getEmailid() {
-		return Emailid;
-	}
-
-	public void setEmailid(String emailid) {
-		Emailid = emailid;
-	}
-
-	public BigDecimal getSalary() {
-        return salary;
-    }
-
-    public void setSalary(BigDecimal salary) {
-        this.salary = salary;
-    }
-}
