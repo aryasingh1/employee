@@ -6,5 +6,6 @@ public interface EmployeeService {
 	public abstract Iterable<Employee> listAllEmployee();
 	public abstract Employee getEmployeeById(Integer id);
 	public abstract Employee saveEmployee(Employee employee);
+	public abstract Employee updateEmployee(Employee employee);
 	public abstract void deleteEmployee(Integer id);
 }

@@ -36,20 +36,20 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 	private void loadEmployee1()
 	{
 		Employee employee = new Employee();
-		employee.setDescription("employee address");
-		employee.setSalary(new BigDecimal("59199.00"));
+		employee.setName("Kishan");
 		employee.setEmailid("www.gomedii.com");
-		employee.setEname("Kishan");
+		employee.setSalary(new BigDecimal("59199.00"));
+		employee.setDescription("employee address");
 		employee.setCreatedOn(new Date());
 		//employee.setUpdatedOn(new Date());
 		//employee1Repository.save(employee);
 		log.info("Employee - id: " + employee.getId());
 
 		Employee director = new Employee();
-		director.setDescription("director address");
+		director.setName("Arya");
 		director.setEmailid("www.binaryinformatics.com");
-		director.setEname("Arya");
 		director.setSalary(new BigDecimal("5847499"));
+		director.setDescription("director address");
 		director.setCreatedOn(new Date());
 		//director.setUpdatedOn(new Date());
 		//employee1Repository.save(director);
@@ -57,16 +57,16 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 
 
 		Department department1 = new Department();
-		department1.setDname("I.T.");
-		department1.setDmob("789644");
+		department1.setName("I.T.");
+		department1.setContact_no("789644");
 		department1.setCreatedOn(new Date());
 		//department1.setUpdatedOn(new Date());
 		//departmentRepository.save(department1);
 		log.info("Department - id: " + department1.getId());
 
 		Department department2 = new Department();
-		department2.setDname("Medical");
-		department2.setDmob("987456621");
+		department2.setName("Medical");
+		department2.setContact_no("5122222");
 		department2.setCreatedOn(new Date());
 		//department2.setUpdatedOn(new Date());
 		//departmentRepository.save(department2);

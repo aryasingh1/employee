@@ -18,6 +18,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.envers.AuditJoinTable;
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -28,14 +29,16 @@ public class Department {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name= "did")
+	@Column(name= "id")
 	private Integer id;
 	
-	@Column(name= "dname")
-	private String Dname;
+	@Column(name= "name")
+	@NotEmpty(message = "*Please provide department name")
+	private String name;
 	
-	@Column(name= "dmob")
-	private String Dmob;
+	@Column(name= "contact_no")
+	@NotEmpty(message = "*Please provide department mobile number ")
+	private String contact_no;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name= "created_on")
@@ -65,19 +68,20 @@ public class Department {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getDname() {
-		return Dname;
-	}
-	public void setDname(String dname) {
-		this.Dname = dname;
-	}
-	public String getDmob() {
-		return Dmob;
-	}
-	public void setDmob(String dmob) {
-		this.Dmob = dmob;
-	}
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getContact_no() {
+		return contact_no;
+	}
+	public void setContact_no(String contact_no) {
+		this.contact_no = contact_no;
+	}
 	public Date getCreatedOn() {
 		return createdOn;
 	}
@@ -107,7 +111,6 @@ public class Department {
     {
     	this.createdBy= createdBy;
     }
-
     public int getUpdatedBy()
     {
     	return updatedBy;

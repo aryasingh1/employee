@@ -15,7 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.envers.Audited;
+import org.hibernate.validator.constraints.NotEmpty;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -32,8 +34,9 @@ public class Employee {
 
 	@ApiModelProperty(notes = "The application-specific employee ID")
 	@JsonView(View.Summary.class)
-	@Column(name="ename")
-	private String Ename;
+	@NotEmpty(message = "*Please provide employee name")
+	@Column(name="name")
+	private String name;
 
 	@JsonView(View.Summary.class)
 	@ApiModelProperty(notes = "The employee description")
@@ -42,7 +45,8 @@ public class Employee {
 
 	@ApiModelProperty(notes = "The Emailid of the employee")
 	@Column(name="emailid",length=5000)
-	private String Emailid;
+	@NotEmpty(message = "*Please provide employee email id")
+	private String emailid;
 
 
 	@Column(name="salary")
@@ -52,6 +56,7 @@ public class Employee {
 	@Column(name= "created_on")
 	private Date createdOn;
 
+	//@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="employee")
 
 	private List<Department> department;
@@ -123,20 +128,20 @@ public class Employee {
 		this.id = id;
 	}
 
-	public String getEname() {
-		return Ename;
+	public String getName() {
+		return name;
 	}
 
-	public void setEname(String ename) {
-		Ename = ename;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmailid() {
-		return Emailid;
+		return emailid;
 	}
 
 	public void setEmailid(String emailid) {
-		Emailid = emailid;
+		this.emailid = emailid;
 	}
 
 	public BigDecimal getSalary() {

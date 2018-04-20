@@ -28,7 +28,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Iterable<Employee> listAllEmployee() {
 		logger.debug("listAllEmployee called");
-		return employeeRepository.findAll();
+		Iterable<Employee>  iterable = employeeRepository.findAll();
+		return iterable;
 	}
 
 	@Override
@@ -36,10 +37,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		logger.debug("getEmployeeById called");
 		return employeeRepository.findOne(id);
 	}
+	
 
 	@Override
 	public Employee saveEmployee(Employee employee) {
-		logger.debug("saveDepartment called"); 
+		logger.debug("saveEmployee called"); 
 
 		List<Department> deptlist = employee.getDepartment();
 
@@ -49,10 +51,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 		return employeeRepository.save(employee);
 	}
+	
+	@Override
+	public Employee updateEmployee(Employee employee)
+	{
+		return employeeRepository.save(employee);
+	}
 
 	@Override
 	public void deleteEmployee(Integer id) {
 		logger.debug("deleteEmployee called");
 		employeeRepository.delete(id);
 	}
+	
 }

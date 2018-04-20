@@ -54,7 +54,7 @@ public class Employee1ApplicationTests extends TestCase {
 		employee.setDescription("employee address");
 		employee.setSalary(new BigDecimal("45667.00"));
 		employee.setEmailid("www.gomedii.com");
-		employee.setEname("123456");
+		employee.setName("123456");
 		return employee;
 	}
 	

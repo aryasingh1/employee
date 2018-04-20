@@ -35,7 +35,7 @@ public class EmployeeRepoTest  {
 		private Employee getEmployee() {
 			Employee employee = new Employee();
 			employee.setId(1);
-			employee.setEname("ram");
+			employee.setName("ram");
 			employee.setDescription("employee address");
 			employee.setSalary(new BigDecimal("13299.00"));
 			employee.setEmailid("mcasaurabh6877@gmail.com");
@@ -78,9 +78,9 @@ public class EmployeeRepoTest  {
 		public void testUpdate() {
 
 			Employee emp = employeeRepo.findOne(1);
-			emp.setEname("saurabh");
+			emp.setName("saurabh");
 			Employee updated = employeeRepo.save(emp);
-			assertThat(updated.getEname(), equalTo("saurabh"));
+			assertThat(updated.getName(), equalTo("saurabh"));
 			String name = jdbcTemplate.queryForObject("SELECT ENAME FROM EMPLOYEE WHERE ID = ?", String.class, 1);
 			assertThat(name, equalTo("saurabh"));
 
