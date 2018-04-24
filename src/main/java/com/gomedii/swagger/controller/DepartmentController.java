@@ -1,6 +1,5 @@
 package com.gomedii.swagger.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,17 +11,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.gomedii.swagger.model.Department;
+import com.gomedii.swagger.model.DepartmentDto;
 import com.gomedii.swagger.model.Employee;
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.service.DepartmentService;
-import com.gomedii.swagger.service.EmployeeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ResponseHeader;
+import net.minidev.json.parser.ParseException;
 
 @RestController
 @RequestMapping("/department")
@@ -34,6 +35,9 @@ public class DepartmentController {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	private org.modelmapper.ModelMapper modelMapper;
 
 	@ApiOperation(value = "View a list of present Department",response = Department.class)
 	@ApiResponses(value = {
@@ -72,11 +76,10 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value = "/api/Departments", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> saveDepartment(@RequestBody Department department)
+	public ResponseEntity<String> saveDepartment(@RequestBody DepartmentDto departmentDto)
 	{
 		departmentService.saveDepartment(department); 
-		return new ResponseEntity<String>("Department saved successfully", HttpStatus.OK); 
-
+		return new ResponseEntity<String>("Department saved successfully", HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Update a Department")
@@ -116,27 +119,17 @@ public class DepartmentController {
 	{
 		departmentService.deleteDepartment(id);
 		return new ResponseEntity<String>("department deleted successfully", HttpStatus.OK);
-
 	}
-
-	/* @PutMapping("/api/employees/{id}/summarry")
-
-    @JsonView(View.Summary.class)
-
-    public Department getSpecificDepartment(@PathVariable(value="id") Integer id)
-    {
- 	  return departmentService.getDepartmentById(id);
- 	 // return repo.findOne(id);
-
-   // }
-
-    @PutMapping("/getAll/{id}")
-
-    public Department getAllDepartment(@PathVariable(value="id") Integer id)
-    {
- 	  return departmentService.getDepartmentById(id);
- 	 // return repo.findOne(id);
-
-    }
-	 */
+	
+	private Department convertToEntity(DepartmentDto dmDto) throws ParseException 
+	{
+		Department department = modelMapper.map(dmDto, Department.class);
+	    return department;
+	}
+	
+	private DepartmentDto convertToDto(Department department) 
+	{
+		DepartmentDto dmDto = modelMapper.map(department, DepartmentDto.class);   
+	    return dmDto;
+	}
 }

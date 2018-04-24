@@ -43,6 +43,8 @@ public class EmployeeController {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 	
+	@Autowired
+	 private org.modelmapper.ModelMapper modelMapper;
 	
 	@ApiOperation(value = "View a list of present employee",response = Employee.class)
 	@ApiResponses(value = {
