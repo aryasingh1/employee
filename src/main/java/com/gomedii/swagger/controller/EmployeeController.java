@@ -4,6 +4,7 @@ package com.gomedii.swagger.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.el.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.gomedii.swagger.model.Department;
 import com.gomedii.swagger.model.Employee;
+import com.gomedii.swagger.model.EmployeeDto;
 import com.gomedii.swagger.model.View;
 import com.gomedii.swagger.repositries.DepartmentRepository;
 import com.gomedii.swagger.repositries.EmployeeRepository;
@@ -43,6 +44,9 @@ public class EmployeeController {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 	
+	 @Autowired
+	 private org.modelmapper.ModelMapper modelMapper;
+	
 	
 	@ApiOperation(value = "View a list of present employee",response = Employee.class)
 	@ApiResponses(value = {
@@ -64,7 +68,7 @@ public class EmployeeController {
 	@ApiOperation(value = "Search a employee with an ID",response = Employee.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})    
 	}
 			)
@@ -77,28 +81,30 @@ public class EmployeeController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})  
 	}
 			)
 	@ApiOperation(value = "Add a employee")
 	@RequestMapping(value = "/api/employees", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> saveEmployee(@RequestBody Employee employee)
+	public ResponseEntity<Employee> saveEmployee(@RequestBody EmployeeDto employeeDto)throws ParseException
 	{
+		
+		Employee employee =  convertToEntity(employeeDto);
 		employeeService.saveEmployee(employee);
-		return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK); 
+		return new ResponseEntity<Employee>(HttpStatus.OK); 
 	}
 
 	@ApiOperation(value = "Update a employee")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})  
 	})
 	
 
 	@RequestMapping(value = "/api/employees/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<String> updateEmployee(@PathVariable(value="id") Integer id, @RequestBody Employee employee)
+	public ResponseEntity<Employee> updateEmployee(@PathVariable(value="id") Integer id, @RequestBody Employee employee)
 	{
 		List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
 		Employee emp1 =  employeeList.get(0);
@@ -116,22 +122,22 @@ public class EmployeeController {
 		employee.setUpdatedBy(updatedBy);		//Updated by employee id = 1
 		//employeeService.saveEmployee(employee);
 		employeeService.updateEmployee(employee);
-		return new ResponseEntity<String>("Employee updated Successfully", HttpStatus.OK);
+		return new ResponseEntity<Employee>(HttpStatus.OK);
 	}
 	
 	
 	@ApiOperation(value = "Delete a employee")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})  
 	}
 			)
 	@RequestMapping(value="/api/empoyees/{id}", method = RequestMethod.DELETE, produces = "application/json")
-	public ResponseEntity<String> delete(@PathVariable Integer id)
+	public ResponseEntity<Employee> delete(@PathVariable Integer id)
 	{
 		employeeService.deleteEmployee(id);
-		return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
+		return new ResponseEntity<Employee>(HttpStatus.OK);
 	}
 
 
@@ -153,5 +159,17 @@ public class EmployeeController {
 		return employeeService.getEmployeeById(id);
 
 
+	}
+	
+	private Employee convertToEntity(EmployeeDto emDto) throws ParseException 
+	{
+		Employee employee = modelMapper.map(emDto, Employee.class);	  
+	    return employee;
+	}
+	
+	private EmployeeDto convertToDto(Employee employee) {
+		EmployeeDto emDto = modelMapper.map(employee, EmployeeDto.class);
+	   
+	    return emDto;
 	}
 }

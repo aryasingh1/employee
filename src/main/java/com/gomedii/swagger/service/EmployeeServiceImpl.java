@@ -1,6 +1,7 @@
 package com.gomedii.swagger.service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -42,6 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee saveEmployee(Employee employee) {
 		logger.debug("saveEmployee called"); 
+		employee.setCreatedOn(new Date());
+		//employee.setUpdatedOn(new Date());
+		employee.setDescription("IT");
 
 		List<Department> deptlist = employee.getDepartment();
 
@@ -55,6 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee updateEmployee(Employee employee)
 	{
+		employee.setUpdatedOn(new Date());
 		return employeeRepository.save(employee);
 	}
 
