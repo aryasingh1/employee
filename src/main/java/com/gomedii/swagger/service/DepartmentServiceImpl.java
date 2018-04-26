@@ -45,7 +45,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 		logger.debug("saveDepartment called"); 
 		department.setCreatedOn(new Date());
 		List<Employee> emplist = (List<Employee>) employeeRepository.findAll();
+		Employee emp1 = emplist.get(0);
+		int createdBy = emp1.getId();
 		//department.setUpdatedOn(new Date());
+		department.setCreatedBy(createdBy);
 		department.setEmployee(emplist);
 		return departmentRepository.save(department);
 	}
@@ -56,7 +59,6 @@ public class DepartmentServiceImpl implements DepartmentService {
 		department.setUpdatedOn(new Date());
 		return departmentRepository.save(department);
 	}
-
 	
 	@Override
 	public void deleteDepartment(Integer id) {

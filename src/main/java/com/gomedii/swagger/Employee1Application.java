@@ -38,7 +38,7 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		Employee employee = new Employee();
 		employee.setName("Kishan");
 		employee.setEmailid("www.gomedii.com");
-		employee.setSalary(new BigDecimal("59199.00"));
+		employee.setSalary(new BigDecimal("591899.00"));
 		employee.setDescription("employee address");
 		employee.setCreatedOn(new Date());
 		//employee.setUpdatedOn(new Date());
@@ -94,5 +94,6 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		department2.setCreatedBy(employee.getId());
 
 		employee1Repository.save(employee);
+		//26-04
 	}
 }

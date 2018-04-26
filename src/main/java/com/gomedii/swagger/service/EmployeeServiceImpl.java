@@ -1,5 +1,6 @@
 package com.gomedii.swagger.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -32,20 +33,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Iterable<Employee>  iterable = employeeRepository.findAll();
 		return iterable;
 	}
-
+	
 	@Override
 	public Employee getEmployeeById(Integer id) {
 		logger.debug("getEmployeeById called");
 		return employeeRepository.findOne(id);
 	}
 	
-
 	@Override
 	public Employee saveEmployee(Employee employee) {
 		logger.debug("saveEmployee called"); 
+	
+		List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
+		Employee emp1 =  employeeList.get(0);
+		int createdBy = emp1.getId();
+		
+		employee.setCreatedOn(new Date());
+		employee.setDescription("IT");
+		employee.setCreatedBy(createdBy);
+		//employee.setUpdatedOn(new Date());
+
 		employee.setCreatedOn(new Date());
 		//employee.setUpdatedOn(new Date());
 		employee.setDescription("IT");
+
 
 		List<Department> deptlist = employee.getDepartment();
 

@@ -18,6 +18,9 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -64,6 +67,7 @@ public class Employee {
 	@Column(name = "updated_on")
 	private Date updatedOn;
 
+	//@DateTimeFormat(pattern= "DD/MM/YYYY")
 	@Column(name= "createdBy")
 	private int createdBy;
 
