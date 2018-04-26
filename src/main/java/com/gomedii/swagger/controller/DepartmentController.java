@@ -45,7 +45,7 @@ public class DepartmentController {
 	@ApiOperation(value = "View a list of present Department",response = Department.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrieved list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Department.class)
 			}),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
@@ -62,7 +62,7 @@ public class DepartmentController {
 	@ApiOperation(value = "Search a Department with an ID",response = Department.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrieved list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Department.class)
 			})
 	})
 	@RequestMapping(value = "/api/Department/{id}", method= RequestMethod.GET, produces = "application/json")
@@ -76,26 +76,26 @@ public class DepartmentController {
 	@ApiOperation(value = "Add a Department")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrieved list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Department.class)
 			})
 	})
 	@RequestMapping(value = "/api/Departments", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> saveDepartment(@RequestBody DepartmentDtoPost departmentDto) throws ParseException
+	public ResponseEntity<Department> saveDepartment(@RequestBody DepartmentDtoPost departmentDto) throws ParseException
 	
 	{
 		Department department= convertToEntity(departmentDto);
 		departmentService.saveDepartment(department); 
-		return new ResponseEntity<String>("Department saved successfully", HttpStatus.OK);
+		return new ResponseEntity<Department>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Update a Department")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrieved list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Department.class)
 			})
 	})
 	@RequestMapping(value = "/api/Departments/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<String> updateDepartmentDto(@PathVariable Integer id, @RequestBody DepartmentDtoUpdate departmentDtoUpdate) throws ParseException
+	public ResponseEntity<Department> updateDepartmentDto(@PathVariable Integer id, @RequestBody DepartmentDtoUpdate departmentDtoUpdate) throws ParseException
 	{	
 		List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
 		Employee emp1 =  employeeList.get(0);
@@ -111,20 +111,20 @@ public class DepartmentController {
 		
 		departmentService.updateDepartment(storedDepartment);
 		//departmentService.saveDepartment(storedDepartment);
-		return new ResponseEntity<String>("Department updated successfully", HttpStatus.OK);
+		return new ResponseEntity<Department>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Delete a department")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrieved list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Department.class)
 			})
 	})
 	@RequestMapping(value="/api/departments/{id}", method = RequestMethod.DELETE, produces = "application/json")
-	public ResponseEntity<String> delete(@PathVariable Integer id)
+	public ResponseEntity<Department> delete(@PathVariable Integer id)
 	{
 		departmentService.deleteDepartment(id);
-		return new ResponseEntity<String>("department deleted successfully", HttpStatus.OK);
+		return new ResponseEntity<Department>(HttpStatus.OK);
 	}
 	
 	private Department convertToEntity(DepartmentDtoPost dmDto) throws ParseException 

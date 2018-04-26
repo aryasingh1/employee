@@ -2,13 +2,6 @@ package com.gomedii.swagger.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-
-import org.hibernate.envers.AuditJoinTable;
 
 public class DepartmentDtoPost {
 

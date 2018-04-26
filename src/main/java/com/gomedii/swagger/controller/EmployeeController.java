@@ -3,6 +3,7 @@ package com.gomedii.swagger.controller;
 
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.ParseException;
 import org.springframework.http.HttpStatus;
@@ -16,14 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.gomedii.swagger.model.Employee;
+
 import com.gomedii.swagger.model.EmployeeDtoPost;
 import com.gomedii.swagger.model.EmployeeDtoUpdate;
+
 import com.gomedii.swagger.model.View;
 import com.gomedii.swagger.repositries.DepartmentRepository;
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.service.DepartmentService;
 import com.gomedii.swagger.service.EmployeeService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -47,11 +49,12 @@ public class EmployeeController {
 	
 	@Autowired
 	 private org.modelmapper.ModelMapper modelMapper;
+
 	
 	@ApiOperation(value = "View a list of present employee",response = Employee.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			}),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
@@ -68,7 +71,7 @@ public class EmployeeController {
 	@ApiOperation(value = "Search a employee with an ID",response = Employee.class)
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})    
 	}
 			)
@@ -81,28 +84,31 @@ public class EmployeeController {
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
+
 					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
 			})
 	}	)
 	@ApiOperation(value = "Add a employee")
 	@RequestMapping(value = "/api/employees", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> saveEmployee(@RequestBody EmployeeDtoPost employeeDto) throws ParseException
+	public ResponseEntity<Employee> saveEmployee(@RequestBody EmployeeDtoPost employeeDto) throws ParseException
 	{
 		Employee employee = convertToEntity(employeeDto);
 		employeeService.saveEmployee(employee);
-		return new ResponseEntity<String>("employee saved successfully", HttpStatus.OK);
+		return new ResponseEntity<Employee>(HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "Update a employee")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})  
 	})
 	
 
 	@RequestMapping(value = "/api/employees/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<String> updateEmployee(@PathVariable(value="id") Integer id, @RequestBody EmployeeDtoUpdate employeeDtoUpdate) throws ParseException
+
+	public ResponseEntity<Employee> updateEmployee(@PathVariable(value="id") Integer id, @RequestBody EmployeeDtoUpdate employeeDtoUpdate) throws ParseException
+
 	{
 		//Employee employee = convertToEntity(employeeupdate);
 		
@@ -123,22 +129,22 @@ public class EmployeeController {
 		//employeeService.saveEmployee(employee);		
 		
 		employeeService.updateEmployee(employee);
-		return new ResponseEntity<String>("Employee updated Successfully", HttpStatus.OK);
+		return new ResponseEntity<Employee>(HttpStatus.OK);
 	}
 	
 	
 	@ApiOperation(value = "Delete a employee")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrievedd list",responseHeaders = {
-					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = String.class)
+					@ResponseHeader(name = "Location", description = "The URL to retrieve created resource", response = Employee.class)
 			})  
 	}
 			)
 	@RequestMapping(value="/api/empoyees/{id}", method = RequestMethod.DELETE, produces = "application/json")
-	public ResponseEntity<String> delete(@PathVariable Integer id)
+	public ResponseEntity<Employee> delete(@PathVariable Integer id)
 	{
 		employeeService.deleteEmployee(id);
-		return new ResponseEntity<String>("employee deleted successfully", HttpStatus.OK);
+		return new ResponseEntity<Employee>(HttpStatus.OK);
 	}
 
 
@@ -182,4 +188,7 @@ public class EmployeeController {
 		EmployeeDtoUpdate emDtoupdate = modelMapper.map(employee, EmployeeDtoUpdate.class);
 	    return emDtoupdate;
 	}
+	
+
+	
 }

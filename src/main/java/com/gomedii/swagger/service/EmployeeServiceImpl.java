@@ -52,7 +52,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employee.setDescription("IT");
 		employee.setCreatedBy(createdBy);
 		//employee.setUpdatedOn(new Date());
-		
+
+		employee.setCreatedOn(new Date());
+		//employee.setUpdatedOn(new Date());
+		employee.setDescription("IT");
+
+
 		List<Department> deptlist = employee.getDepartment();
 
 		for(Department deptloop : deptlist)
@@ -65,6 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee updateEmployee(Employee employee)
 	{
+		employee.setUpdatedOn(new Date());
 		return employeeRepository.save(employee);
 	}
 
