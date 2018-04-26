@@ -1,9 +1,9 @@
 package com.gomedii.swagger.model;
 
-public class DepartmentDto {
-
+public class DepartmentDtoUpdate {
 	private String name;
 	private String Contact_no;
+	
 	
 	public String getName() {
 		return name;

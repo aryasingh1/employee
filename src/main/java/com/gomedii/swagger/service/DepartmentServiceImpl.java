@@ -1,5 +1,6 @@
 package com.gomedii.swagger.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -42,10 +43,10 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public Department saveDepartment(Department department) {
 		logger.debug("saveDepartment called"); 
-
+		department.setCreatedOn(new Date());
 		List<Employee> emplist = (List<Employee>) employeeRepository.findAll();
+		//department.setUpdatedOn(new Date());
 		department.setEmployee(emplist);
-
 		return departmentRepository.save(department);
 	}
 	

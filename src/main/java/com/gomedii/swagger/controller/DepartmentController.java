@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gomedii.swagger.model.Department;
-import com.gomedii.swagger.model.DepartmentDto;
+import com.gomedii.swagger.model.DepartmentDtoPost;
+import com.gomedii.swagger.model.DepartmentDtoUpdate;
 import com.gomedii.swagger.model.Employee;
 import com.gomedii.swagger.repositries.EmployeeRepository;
 import com.gomedii.swagger.service.DepartmentService;
@@ -23,7 +25,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ResponseHeader;
-import net.minidev.json.parser.ParseException;
+
+
 
 @RestController
 @RequestMapping("/department")
@@ -69,6 +72,7 @@ public class DepartmentController {
 		return department;
 	}
 
+	//public ResponseEntity<String> updateDepartment(@PathVariable Integer id, @RequestBody Department department)
 	@ApiOperation(value = "Add a Department")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Successfully retrieved list",responseHeaders = {
@@ -76,8 +80,10 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value = "/api/Departments", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> saveDepartment(@RequestBody DepartmentDto departmentDto)
+	public ResponseEntity<String> saveDepartment(@RequestBody DepartmentDtoPost departmentDto) throws ParseException
+	
 	{
+		Department department= convertToEntity(departmentDto);
 		departmentService.saveDepartment(department); 
 		return new ResponseEntity<String>("Department saved successfully", HttpStatus.OK);
 	}
@@ -89,16 +95,16 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value = "/api/Departments/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<String> updateDepartment(@PathVariable Integer id, @RequestBody Department department)
+	public ResponseEntity<String> updateDepartmentDto(@PathVariable Integer id, @RequestBody DepartmentDtoUpdate departmentDtoUpdate) throws ParseException
 	{	
 		List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
 		Employee emp1 =  employeeList.get(0);
 		int updatedBy = emp1.getId();
 		
 		Department storedDepartment = departmentService.getDepartmentById(id);
-		storedDepartment.setName(department.getName());
-		storedDepartment.setContact_no(department.getContact_no());
-		storedDepartment.setUpdatedOn(department.getUpdatedOn());
+		storedDepartment.setName(departmentDtoUpdate.getName());
+		storedDepartment.setContact_no(departmentDtoUpdate.getContact_no());
+		//storedDepartment.setUpdatedOn(departmentDtoUpdate.getUpdatedOn());
 
 		storedDepartment.setUpdatedOn(new Date());
 		storedDepartment.setUpdatedBy(updatedBy);
@@ -121,15 +127,15 @@ public class DepartmentController {
 		return new ResponseEntity<String>("department deleted successfully", HttpStatus.OK);
 	}
 	
-	private Department convertToEntity(DepartmentDto dmDto) throws ParseException 
+	private Department convertToEntity(DepartmentDtoPost dmDto) throws ParseException 
 	{
 		Department department = modelMapper.map(dmDto, Department.class);
 	    return department;
 	}
 	
-	private DepartmentDto convertToDto(Department department) 
+	private DepartmentDtoPost convertToDto(Department department) 
 	{
-		DepartmentDto dmDto = modelMapper.map(department, DepartmentDto.class);   
+		DepartmentDtoPost dmDto = modelMapper.map(department, DepartmentDtoPost.class);   
 	    return dmDto;
 	}
 }
