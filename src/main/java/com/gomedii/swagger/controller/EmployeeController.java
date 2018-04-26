@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,7 +74,7 @@ public class EmployeeController {
 	}
 			)
 	@RequestMapping(value = "/api/employees/{id}", method= RequestMethod.GET, produces = "application/json")
-	public Employee showEmployee(@PathVariable Integer id)
+	public Employee showEmployee(@PathVariable Integer id,@RequestHeader(value="auth") String auth)
 	{
 		Employee employee = employeeService.getEmployeeById(id);
 		return employee;
@@ -87,7 +88,7 @@ public class EmployeeController {
 			)
 	@ApiOperation(value = "Add a employee")
 	@RequestMapping(value = "/api/employees", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Employee> saveEmployee(@RequestBody EmployeeDto employeeDto)throws ParseException
+	public ResponseEntity<Employee> saveEmployee(@RequestBody EmployeeDto employeeDto,@RequestHeader(value="auth") String auth)throws ParseException
 	{
 		
 		Employee employee =  convertToEntity(employeeDto);
@@ -104,7 +105,7 @@ public class EmployeeController {
 	
 
 	@RequestMapping(value = "/api/employees/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable(value="id") Integer id, @RequestBody Employee employee)
+	public ResponseEntity<Employee> updateEmployee(@PathVariable(value="id") Integer id, @RequestBody Employee employee,@RequestHeader(value="auth") String auth)
 	{
 		List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
 		Employee emp1 =  employeeList.get(0);
@@ -134,7 +135,7 @@ public class EmployeeController {
 	}
 			)
 	@RequestMapping(value="/api/empoyees/{id}", method = RequestMethod.DELETE, produces = "application/json")
-	public ResponseEntity<Employee> delete(@PathVariable Integer id)
+	public ResponseEntity<Employee> delete(@PathVariable Integer id,@RequestHeader(value="auth") String auth)
 	{
 		employeeService.deleteEmployee(id);
 		return new ResponseEntity<Employee>(HttpStatus.OK);

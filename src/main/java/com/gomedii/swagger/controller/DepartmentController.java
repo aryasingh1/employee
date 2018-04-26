@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,7 +67,7 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value = "/api/Department/{id}", method= RequestMethod.GET, produces = "application/json")
-	public Department showDepartment(@PathVariable Integer id)
+	public Department showDepartment(@PathVariable Integer id,@RequestHeader(value="auth") String auth)
 	{
 		Department department = departmentService.getDepartmentById(id);
 		return department;
@@ -79,7 +80,7 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value = "/api/Departments", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<Department> saveDepartment(@RequestBody DepartmentDto departmentDto) throws ParseException
+	public ResponseEntity<Department> saveDepartment(@RequestBody DepartmentDto departmentDto,@RequestHeader(value="auth") String auth) throws ParseException
 	{
 		
 		Department department =  convertToEntity(departmentDto);
@@ -95,7 +96,7 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value = "/api/Departments/{id}", method = RequestMethod.PUT, produces = "application/json")
-	public ResponseEntity<Department> updateDepartment(@PathVariable Integer id, @RequestBody Department department)
+	public ResponseEntity<Department> updateDepartment(@PathVariable Integer id, @RequestBody Department department,@RequestHeader(value="auth") String auth)
 	{	
 		List<Employee> employeeList =  (List<Employee>) employeeRepository.findAll();
 		Employee emp1 =  employeeList.get(0);
@@ -121,7 +122,7 @@ public class DepartmentController {
 			})
 	})
 	@RequestMapping(value="/api/departments/{id}", method = RequestMethod.DELETE, produces = "application/json")
-	public ResponseEntity<Department> delete(@PathVariable Integer id)
+	public ResponseEntity<Department> delete(@PathVariable Integer id,@RequestHeader(value="auth") String auth)
 	{
 		departmentService.deleteDepartment(id);
 		return new ResponseEntity<Department>(HttpStatus.OK);
