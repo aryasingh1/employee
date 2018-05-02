@@ -79,7 +79,6 @@ public class Employee1Application implements ApplicationListener<ContextRefreshe
 		List<Department> deptList = new ArrayList<Department>();
 		deptList.add(department1);
 		deptList.add(department2);
-
 		department1.setEmployee(empList);
 		department2.setEmployee(empList);
 
